@@ -40,13 +40,9 @@ public class PageParser {
 
                 if (condition1 && condition3) {
                     url = StarterParsing.getDefaultUrl() + url.substring(1);
-                    if (STOP_WORDS.stream().noneMatch(url::contains)) {
-                        addUrl(url, urlSet);
-                    }
+                    addUrl(url, urlSet);
                 } else if (condition2 && condition3) {
-                    if (STOP_WORDS.stream().noneMatch(url::contains)) {
-                        addUrl(url, urlSet);
-                    }
+                    addUrl(url, urlSet);
                 }
             }
         } catch (HttpStatusException e) {

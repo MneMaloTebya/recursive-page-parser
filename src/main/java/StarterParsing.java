@@ -29,7 +29,5 @@ public class StarterParsing {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 }

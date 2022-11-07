@@ -27,5 +27,4 @@ public class RecursiveParser extends RecursiveTask<Set<String>> {
         }
         return urls;
     }
-
 }
