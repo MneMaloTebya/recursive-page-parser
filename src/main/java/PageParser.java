@@ -39,7 +39,7 @@ public class PageParser {
                 boolean condition3 = STOP_WORDS.stream().noneMatch(url::contains);
 
                 if (condition1 && condition3) {
-                    url = StarterParsing.getDefaultUrl() + url.substring(1);
+                    url = MyRunnable.getDefaultUrl() + url.substring(1);
                     addUrl(url, urlSet);
                 } else if (condition2 && condition3) {
                     addUrl(url, urlSet);
@@ -55,9 +55,9 @@ public class PageParser {
 
     private static void addUrl(String url, Set<String> urlSet) {
         synchronized (obj) {
-            if (!StarterParsing.getSiteTreeSet().contains(url)) {
+            if (!MyRunnable.getSiteTreeSet().contains(url)) {
                 urlSet.add(url);
-                StarterParsing.getSiteTreeSet().add(url);
+                MyRunnable.getSiteTreeSet().add(url);
                 stringBuilder.append(url + "\n");
             }
         }

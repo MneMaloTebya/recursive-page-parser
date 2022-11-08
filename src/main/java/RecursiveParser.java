@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.concurrent.RecursiveTask;
 
 public class RecursiveParser extends RecursiveTask<Set<String>> {
-    private Set<String> urlsMap;
+    private static Set<String> urlsMap;
 
     public RecursiveParser(Set<String> urlsMap) {
         this.urlsMap = urlsMap;
@@ -26,5 +26,9 @@ public class RecursiveParser extends RecursiveTask<Set<String>> {
             e.printStackTrace();
         }
         return urls;
+    }
+
+    public static Set<String> getUrlsMap() {
+        return urlsMap;
     }
 }
