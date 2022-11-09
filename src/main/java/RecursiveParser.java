@@ -5,10 +5,13 @@ import java.util.Set;
 import java.util.concurrent.RecursiveTask;
 
 public class RecursiveParser extends RecursiveTask<Set<String>> {
-    private static Set<String> urlsMap;
 
-    public RecursiveParser(Set<String> urlsMap) {
+    private Set<String> urlsMap;
+    private PageParser pageParser;
+
+    public RecursiveParser(Set<String> urlsMap, PageParser pageParser) {
         this.urlsMap = urlsMap;
+        this.pageParser = pageParser;
     }
 
     @Override
@@ -18,7 +21,7 @@ public class RecursiveParser extends RecursiveTask<Set<String>> {
 
             List<RecursiveParser> tasks = new ArrayList<>();
             for (String url : urlsMap) {
-                RecursiveParser task = new RecursiveParser(PageParser.parsing(url));
+                RecursiveParser task = new RecursiveParser(pageParser.parsing(url), pageParser);
                 task.fork();
                 tasks.add(task);
             }
@@ -26,9 +29,5 @@ public class RecursiveParser extends RecursiveTask<Set<String>> {
             e.printStackTrace();
         }
         return urls;
-    }
-
-    public static Set<String> getUrlsMap() {
-        return urlsMap;
     }
 }

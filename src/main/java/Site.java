@@ -3,17 +3,16 @@ import java.util.Set;
 
 public class Site {
 
-    private static String name;
+    private String fullName;
 
-    private static Set<String> siteTreeSet;
+    private Set<String> urlSiteSet = new LinkedHashSet<>();
 
-    public Site(String name) {
-        siteTreeSet = new LinkedHashSet<>();
-        Site.name = name;
+    public Site(String fullName) {
+        this.fullName = fullName;
     }
 
-    public static String cutPath() {
-        return name
+    public String cutDomain() {
+        return fullName
                 .replace("https", "")
                 .replace("http", "")
                 .replace("://", "")
@@ -21,11 +20,11 @@ public class Site {
                 .replace("/", "");
     }
 
-    public static Set<String> getSiteTreeSet() {
-        return siteTreeSet;
+    public Set<String> getUrlSiteSet() {
+        return urlSiteSet;
     }
 
-    public static String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 }
