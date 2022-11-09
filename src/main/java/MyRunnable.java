@@ -9,22 +9,13 @@ public class MyRunnable implements Runnable{
 
     private RecursiveParser recursiveParser;
 
-    private static String defaultUrl = "https://skillbox.ru/";
+    private Site url;
 
-    private static Set<String> siteTreeSet = new LinkedHashSet<>();
-
-    public static String getDefaultUrl() {
-        return defaultUrl;
-    }
-
-    public static Set<String> getSiteTreeSet() {
-        return siteTreeSet;
-    }
-
-    public MyRunnable() {
+    public MyRunnable(Site url) {
+        this.url = url;
         recursiveParser = new RecursiveParser(RecursiveParser.getUrlsMap());
         try {
-            new ForkJoinPool().invoke(new RecursiveParser(PageParser.parsing(MyRunnable.getDefaultUrl())));
+            new ForkJoinPool().invoke(new RecursiveParser(PageParser.parsing(Site.getName())));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -33,7 +24,7 @@ public class MyRunnable implements Runnable{
     @Override
     public void run() {
         try {
-            FileWriter fileWriter = new FileWriter("data/siteMap.txt");
+            FileWriter fileWriter = new FileWriter("data/" + Site.cutPath() + ".txt");
             fileWriter.write(PageParser.getStringBuilder().toString());
             fileWriter.flush();
             fileWriter.close();
@@ -41,6 +32,5 @@ public class MyRunnable implements Runnable{
             throw new RuntimeException(e);
         }
         recursiveParser.compute();
-
     }
 }
