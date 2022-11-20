@@ -27,12 +27,13 @@ public class PageParser {
         Thread.sleep(500);
         Set<String> urlSet = new HashSet<>();
         try {
-            Document document = getResponse(currentUrl).parse();
+            var response = getResponse(currentUrl);
+            Document document = response.parse();
             Elements elements = document.select("a");
             for (Element element : elements) {
                 String url = element.attr("href");
                 boolean condition1 = url.startsWith("/");
-                boolean condition2 = (url.contains(site.getFullName()) );
+                boolean condition2 = (url.contains(document.location()));
                 boolean condition3 = STOP_WORDS.stream().noneMatch(url::contains);
                 if (condition1 && condition3) {
                     url = site.getFullName() + url.substring(1);
@@ -60,7 +61,7 @@ public class PageParser {
         }
     }
 
-    private Connection.Response getResponse(String linkPage) throws IOException {
+    private static Connection.Response getResponse(String linkPage) throws IOException {
         Connection.Response response = Jsoup.connect(linkPage)
                 .userAgent("Mozilla/5.0 (Windows; U; WindowsNT5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
                 .referrer("http://google.com")

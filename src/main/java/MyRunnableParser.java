@@ -17,12 +17,12 @@ public class MyRunnableParser implements Runnable{
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        new ForkJoinPool().invoke(recursiveParser);
     }
 
     @Override
     public void run() {
         long start = System.currentTimeMillis();
+        new ForkJoinPool().invoke(recursiveParser);
         try {
             FileWriter fileWriter = new FileWriter("data/" + site.cutDomain()+ ".txt");
             fileWriter.write(pageParser.getStringBuilder().toString());
@@ -31,8 +31,7 @@ public class MyRunnableParser implements Runnable{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        recursiveParser.compute();
-        System.out.println("Поток закончил работу: " + Thread.currentThread().getName());
+        System.out.println("Поток " + Thread.currentThread().getName() + " закончил работу.");
         System.out.println("Время работы потока: " + (System.currentTimeMillis() - start)/1000 + " сек.");
     }
 }
