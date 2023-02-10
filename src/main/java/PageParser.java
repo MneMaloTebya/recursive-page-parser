@@ -13,7 +13,7 @@ public class PageParser {
     private final List<String> STOP_WORDS = Arrays
             .asList("vk", "pdf", "twitter", "facebook", "instagram", "utm", "JPG",
                     "jpg", "jpeg", "JPEG", "png", "hh", "youtube", "apple", "yandex",
-                    "google", "webp", "zip");
+                    "google", "webp", "zip", "wa.me", "+", ",", "docx");
 
     private StringBuilder stringBuilder = new StringBuilder();
     private final Object object = new Object();

@@ -16,17 +16,19 @@ public class RecursiveParser extends RecursiveTask<Set<String>> {
 
     @Override
     protected Set<String> compute() {
+        List<RecursiveParser> taskList = new ArrayList<>();
         Set<String> urls = new HashSet<>();
         try {
-
-            List<RecursiveParser> tasks = new ArrayList<>();
             for (String url : urlsMap) {
                 RecursiveParser task = new RecursiveParser(pageParser.parsing(url), pageParser);
                 task.fork();
-                tasks.add(task);
+                taskList.add(task);
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        for (RecursiveParser task : taskList) {
+            urls.addAll(task.join());
         }
         return urls;
     }
